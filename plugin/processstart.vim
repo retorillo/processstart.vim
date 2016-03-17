@@ -8,8 +8,7 @@
 command! -nargs=1 -complete=file ProcessStart :call ProcessStart("<args>")
 cabbrev processstart <c-r>=getcmdtype() == ":" ? "ProcessStart" : "processstart"<CR>
 cabbrev ii <c-r>=getcmdtype() == ":" ? "ProcessStart" : "ii"<CR>
-
+let s:bin = expand("<sfile>:p:h") . "\\processstart.exe"
 function! ProcessStart(path)
-   let s:bin = expand("<sfile>:p:h") . "/processstart.exe"
    call system(s:bin . " " . a:path)
 endfunction

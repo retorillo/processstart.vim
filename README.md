@@ -5,7 +5,7 @@ For Windows Only. Execute .NET `System.Diagnostics.Process.Start` for specified 
 `ii` is an abbrev for `ProcessStart`. Type `:ii` and whitespace, then
 it will be automatically replaced by `:ProcessStart `.
 
-# Example
+## Example
 
 Open 'example.com' by default browser.
 
