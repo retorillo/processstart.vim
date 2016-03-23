@@ -5,7 +5,13 @@
 " Usage:
 " :ProcessStart [{cmd} [{arg1} {arg2} ... ]]
 
-let g:processStart#urlPattern = "\\v(http|https):\\/\\/[-_.a-zA-Z0-9=*'!?#%&(){}|~/]+"
+if !exists("g:processStart#path")
+   let g:processStart#path = ""
+endif
+if !exists("g:processStart#urlPattern")
+   let g:processStart#urlPattern = "\\v(http|https):\\/\\/[-_.a-zA-Z0-9=*'!?#%&(){}|~/]+"
+endif
+
 command! -nargs=* -complete=file ProcessStart :call ProcessStart("<args>")
 cabbrev processstart <c-r>=getcmdtype() == ":" && getcmdpos() == 1 ? "ProcessStart" : "processstart"<CR>
 cabbrev ii <c-r>=getcmdtype() == ":" && getcmdpos() == 1 ? "ProcessStart" : "ii"<CR>
@@ -30,7 +36,7 @@ function! ProcessStart(...)
          let l:arg .= s:ShellQuote(l:a)
       endfor
    endif
-   let l:out = system(s:bin." ".l:arg)
+   let l:out = system(s:bin." ".s:ShellQuote("?".g:processStart#path)." ".l:arg)
    if len(l:out) > 0
       echo l:out
    endif
